@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8" />
 <title>Livros</title>
@@ -19,6 +19,17 @@
   <div class="form-group">
     <label for="quantidadePaginas">Quantidade</label>
     <input type="number" class="form-control" id="quantidadePaginas" name="quantidadePaginas">
+    <small id="emailHelp" class="form-text text-muted">fuck off.</small>
+  </div>
+  
+  <div class="form-group">
+    <label for="quantidadePaginas">Autor</label>
+	
+	<select>
+	    <option th:each="autor : ${listaAutores}" th:value="${autor.id}" th:text="${autor.nome}">
+	    </option>
+	</select>
+	
     <small id="emailHelp" class="form-text text-muted">fuck off.</small>
   </div>
 

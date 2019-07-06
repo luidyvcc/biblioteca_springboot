@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.biblioteca.livros.entidades.Autor;
 import br.biblioteca.livros.entidades.Livro;
+import br.biblioteca.livros.services.AutorService;
 import br.biblioteca.livros.services.LivroService;
 
 @Controller
@@ -21,6 +23,9 @@ public class LivroController {
 
 	@Autowired
 	private LivroService service;
+
+	@Autowired
+	private AutorService serviceAutor;
 
 	@GetMapping("/list")
 	public ModelAndView index() {
@@ -36,14 +41,18 @@ public class LivroController {
 
 	@GetMapping("/novo")
 	public ModelAndView create() {
-		return new ModelAndView(TEMPLATE + "/create");
+
+		List<Autor> autores = this.serviceAutor.listaAutores();
+
+		return new ModelAndView(TEMPLATE + "/create", "listaAutores", autores);
 	}
 
 	@PostMapping("/gravar")
 	public ModelAndView storage(Livro livro) {
-		System.out.println("A: " + livro.hashCode());
-		System.out.println("Livro gravado: " + livro.getNome() + " qtde: " + livro.getQuantidadePaginas());
-		return new ModelAndView("redirect:/" + TEMPLATE + "/list");
+
+		this.service.salvaLivro(livro);
+
+		return new ModelAndView("redirect:" + TEMPLATE + "/list");
 	}
 
 	@GetMapping("/editar/{id}")

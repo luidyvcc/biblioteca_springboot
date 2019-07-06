@@ -13,9 +13,13 @@ public class LivroService {
 
 	@Autowired
 	LivroRepository repository;
-	
-	public List<Livro> listaLivros(){
-		return repository.findAll();
+
+	public List<Livro> listaLivros() {
+		return this.repository.findAll();
 	}
-	
+
+	public void salvaLivro(Livro livro) {
+		this.repository.save(livro);
+	}
+
 }
