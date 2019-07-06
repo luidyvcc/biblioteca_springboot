@@ -1,6 +1,7 @@
 package br.biblioteca.livros.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,18 @@ public class LivroService {
 
 	public void salvaLivro(Livro livro) {
 		this.repository.save(livro);
+	}
+
+	public void apagaLivro(Long id) {
+		Optional<Livro> livro = this.repository.findById(id);
+		if (livro.isPresent()) {
+			this.repository.delete(livro.get());
+		}
+	}
+
+	public Livro buscarLivro(Long id) {
+		Optional<Livro> livro = this.repository.findById(id);
+		return livro.orElse(null);
 	}
 
 }

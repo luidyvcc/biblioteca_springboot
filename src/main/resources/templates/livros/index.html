@@ -12,30 +12,27 @@
 	<h1>Listagem de livros</h1>
 	
 	<ul>
-	
-		<li>
-			<a href="/livros/list">Listagem</a>
-		</li>
-		
-		<li>
-			<a href="/livros/editar/1">Editar</a>
-		</li>
 		
 		<li>			
-			<a href="/livros/novo">Cadastrar</a>			
+			<a href="/livros/novo">Novo</a>			
 		</li>
 		
 	</ul>
 	
-	<hr>
+	<table>
 	
-	<tr th:each="livro : ${listaLivros}">
+		<tr th:each="livro : ${listaLivros}">
+		
+			<td th:text="${livro.id}">1</td>
+			
+			<td><a href="#" th:href="@{'/livros/editar/'+${livro.id}}" th:text="${livro.nome}"> Título </a></td>
+			
+			<td><a href="#" th:href="@{'/livros/excluir/'+${livro.id}}" th:text="X"> Apagar </a></td>
+			
+		</tr>
 	
-		<td th:text="${livro.id}">1</td>
-		
-		<td><a href="#" th:href="@{'/livros/'+${livro.id}}" th:text="${livro.nome}"> Título </a></td>
-		
-	</tr>
+	</table>
+	
 	
 	
 </body>

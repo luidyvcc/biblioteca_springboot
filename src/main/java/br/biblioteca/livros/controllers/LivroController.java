@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,11 +41,12 @@ public class LivroController {
 	}
 
 	@GetMapping("/novo")
-	public ModelAndView create() {
+	public ModelAndView create(@ModelAttribute Livro livro) {
+		ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/create");
+		Iterable<Autor> autores = this.serviceAutor.listaAutores();
+		modelAndView.addObject("listaAutores", autores);
+		return modelAndView;
 
-		List<Autor> autores = this.serviceAutor.listaAutores();
-
-		return new ModelAndView(TEMPLATE + "/create", "listaAutores", autores);
 	}
 
 	@PostMapping("/gravar")
@@ -57,14 +59,18 @@ public class LivroController {
 
 	@GetMapping("/editar/{id}")
 	public ModelAndView edit(@PathVariable("id") Long id) {
-		System.out.println("Editar livro: " + id);
-		return new ModelAndView(TEMPLATE + "/edit");
+		Livro livro = this.service.buscarLivro(id);
+		List<Autor> autores = this.serviceAutor.listaAutores();
+		ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/edit");
+		modelAndView.addObject("listaAutores", autores);
+		modelAndView.addObject("livro", livro);
+		return modelAndView;
 	}
 
 	@GetMapping("/excluir/{id}")
 	public ModelAndView destroy(@PathVariable("id") Long id) {
-		System.out.println("Excluir livro: " + id);
-		return new ModelAndView("redirect:/" + TEMPLATE + "/list");
+		this.service.apagaLivro(id);
+		return new ModelAndView("redirect:" + TEMPLATE + "/list");
 	}
 
 }

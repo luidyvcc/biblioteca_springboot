@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8" />
 <title>Livros</title>
 </head>
 <body>
-	<h1>Editar livro</h1>
-	
-	<form method="post" action="/livros/gravar">
-	
-		
-		<input type="hidden" name="id" value="1" />
-		
-		<label for="nome">Nome:</label>
-		<input type="text" name="nome" id="nome" />
-		
-		<hr>
-		
-		<label for="quantidadePaginas">Qtde:</label>
-		<input type="number" name="quantidadePaginas" id="quantidadePaginas" />
-		
-		<hr>
-		
-		<input type="submit" value="Enviar" />
-		
-		<button><a href="/livros/list">Voltar</a></button>
-	
-	</form>
-	
+
+<h1>Novo Livro</h1>
+
+<form th:action="@{/livros/gravar}" method="post" th:object="${livro}" action="#">
+
+<input type="hidden" th:field="*{id}" />
+
+  <div class="form-group">
+    <label for="nome">Titulo</label>
+    <input type="text" th:field="*{nome}" id="nome" name="nome" placeholder="Nome">
+  </div>
+  
+  <div class="form-group">
+    <label for="quantidadePaginas">Quantidade</label>
+    <input type="number" th:field="*{quantidadePaginas}" id="quantidadePaginas" name="quantidadePaginas">
+  </div>
+  
+  <div class="form-group">
+    <label for="autor">Autor</label>	
+	<select th:object="${livro}" th:field="*{autor}">
+	   	 <option value="">Selecione o Autor</option>
+	   	 <option th:each="autor : ${listaAutores}" th:value="${autor.id}" th:utext="${autor.nome} " selected="selected"></option>
+	</select>
+  </div>
+
+  
+  <button type="submit" class="btn btn-primary">Gravar</button>
+  
+  <a href="/livros/list" class="btn btn-primary">Voltar</a>
+  
+</form>
+
 </body>
 </html>
