@@ -30,19 +30,13 @@ public class LivroController {
 
 	@GetMapping("/list")
 	public ModelAndView index() {
-
 		List<Livro> livros = this.service.listaLivros();
-
-		for (Livro livro : livros) {
-			System.out.println(livro.getNome());
-		}
-
 		return new ModelAndView(TEMPLATE + "/index", "listaLivros", livros);
 	}
 
 	@GetMapping("/novo")
 	public ModelAndView create(@ModelAttribute Livro livro) {
-		ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/create");
+		ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/form");
 		Iterable<Autor> autores = this.serviceAutor.listaAutores();
 		modelAndView.addObject("listaAutores", autores);
 		return modelAndView;
@@ -51,9 +45,7 @@ public class LivroController {
 
 	@PostMapping("/gravar")
 	public ModelAndView storage(Livro livro) {
-
 		this.service.salvaLivro(livro);
-
 		return new ModelAndView("redirect:" + TEMPLATE + "/list");
 	}
 
@@ -61,7 +53,7 @@ public class LivroController {
 	public ModelAndView edit(@PathVariable("id") Long id) {
 		Livro livro = this.service.buscarLivro(id);
 		List<Autor> autores = this.serviceAutor.listaAutores();
-		ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/edit");
+		ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/form");
 		modelAndView.addObject("listaAutores", autores);
 		modelAndView.addObject("livro", livro);
 		return modelAndView;

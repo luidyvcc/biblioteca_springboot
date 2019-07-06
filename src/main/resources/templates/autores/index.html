@@ -7,21 +7,27 @@
 <body>
 	<h1>Listagem de autores</h1>
 	
-	<ul>
-	
-		<li>
-			<a href="/autores/list">Listagem</a>
-		</li>
-		
-		<li>
-			<a href="/autores/editar/1">Editar</a>
-		</li>
-		
+	<ul>		
 		<li>			
-			<a href="/autores/novo">Cadastrar</a>			
-		</li>
-		
+			<a href="/autores/novo">Novo</a>			
+		</li>		
 	</ul>
+	
+	<hr>
+	
+	<table>
+	
+		<tr th:each="autor : ${listaAutores}">
+		
+			<td th:text="${autor.id}">1</td>
+			
+			<td><a href="#" th:href="@{'/autores/editar/'+${autor.id}}" th:text="${autor.nome}"> Título </a></td>
+			
+			<td><a href="#" th:href="@{'/autores/excluir/'+${autor.id}}" th:text="X"> Apagar </a></td>
+			
+		</tr>
+	
+	</table>
 	
 	
 </body>
