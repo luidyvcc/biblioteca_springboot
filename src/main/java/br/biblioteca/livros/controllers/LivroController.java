@@ -23,7 +23,7 @@ import br.biblioteca.livros.services.LivroService;
 @RequestMapping("/livros")
 public class LivroController {
 
-	private static final String TEMPLATE = "/livros";
+	private static final String TEMPLATE = "livros";
 
 	@Autowired
 	private LivroService service;

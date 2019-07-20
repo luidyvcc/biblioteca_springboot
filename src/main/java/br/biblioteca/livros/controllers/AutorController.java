@@ -21,7 +21,7 @@ import br.biblioteca.livros.services.AutorService;
 @RequestMapping("/autores")
 public class AutorController {
 
-	private static final String TEMPLATE = "/autores";
+	private static final String TEMPLATE = "autores";
 
 	@Autowired
 	private AutorService service;
