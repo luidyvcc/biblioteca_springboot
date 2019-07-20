@@ -58,7 +58,7 @@ public class LivroController {
 		}
 
 		this.service.salvaLivro(livro);
-		return new ModelAndView("redirect:" + TEMPLATE + "/list");
+		return new ModelAndView("redirect:/" + TEMPLATE + "/list");
 	}
 
 	@GetMapping("/editar/{id}")
