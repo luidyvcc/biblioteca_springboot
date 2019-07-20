@@ -47,7 +47,7 @@ public class AutorController {
 		}
 
 		this.service.salvaAutor(autor);
-		return new ModelAndView("redirect:" + TEMPLATE + "/list");
+		return new ModelAndView("redirect:/" + TEMPLATE + "/list");
 	}
 
 	@GetMapping("/editar/{id}")
