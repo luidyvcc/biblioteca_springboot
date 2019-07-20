@@ -14,12 +14,14 @@
 
   <div class="form-group">
     <label for="nome">Titulo</label>
-    <input type="text" th:field="*{nome}" id="nome" name="nome" placeholder="Nome">
+    <input type="text" th:field="*{nome}" id="nome" name="nome" placeholder="Titulo">
+    <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Error</span>
   </div>
   
   <div class="form-group">
-    <label for="quantidadePaginas">Quantidade</label>
+    <label for="quantidadePaginas">Quantidade de pg.</label>
     <input type="number" th:field="*{quantidadePaginas}" id="quantidadePaginas" name="quantidadePaginas">
+    <span th:if="${#fields.hasErrors('quantidadePaginas')}" th:errors="*{quantidadePaginas}">Error</span>
   </div>
   
   <div class="form-group">

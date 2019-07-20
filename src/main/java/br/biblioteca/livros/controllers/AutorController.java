@@ -2,8 +2,11 @@ package br.biblioteca.livros.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +39,13 @@ public class AutorController {
 	}
 
 	@PostMapping("/gravar")
-	public ModelAndView storage(Autor autor) {
+	public ModelAndView storage(@ModelAttribute("autor") @Valid Autor autor, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/form");
+			return modelAndView;
+		}
+
 		this.service.salvaAutor(autor);
 		return new ModelAndView("redirect:" + TEMPLATE + "/list");
 	}

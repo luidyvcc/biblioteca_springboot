@@ -14,6 +14,7 @@
 		
 		<label for="nome">Titulo</label>
     	<input type="text" th:field="*{nome}" id="nome" name="nome" placeholder="Nome">
+    	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Error</span>
 		
 		<hr>
 		
