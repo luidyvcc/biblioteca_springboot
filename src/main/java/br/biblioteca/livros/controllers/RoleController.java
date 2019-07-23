@@ -61,7 +61,7 @@ public class RoleController {
 	@GetMapping("/excluir/{id}")
 	public ModelAndView destroy(@PathVariable("id") Long id) {
 		this.service.apagaRole(id);
-		return new ModelAndView("redirect:" + TEMPLATE + "/list");
+		return new ModelAndView("redirect:/" + TEMPLATE + "/list");
 	}
 
 }

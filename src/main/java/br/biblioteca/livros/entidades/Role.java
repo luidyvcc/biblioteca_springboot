@@ -19,18 +19,18 @@ public class Role {
 
 	@NotNull
 	@Size(min = 2, max = 150)
-	private String role;
+	private String name;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@OneToMany(mappedBy = "role")
 	private List<User> users = new ArrayList();
 
-	public Role(String role) {
-		this.role = role;
-	}
-
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public List<User> getUsers() {
@@ -41,21 +41,12 @@ public class Role {
 		this.users = users;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public String getName() {
+		return name;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	@Override
-	public String toString() {
-		return "Role [role=" + role + "]";
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

@@ -19,7 +19,9 @@ public class UserRepository {
 
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		User admin = new User("admin", passwordEncoder.encode("123456"));
-		admin.setRole(new Role("ROLE_ADMIN"));
+		Role role = new Role();
+		role.setName("ROLE_ADMIN");
+		admin.setRole(role);
 		users.add(admin);
 
 	}

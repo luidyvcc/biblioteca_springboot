@@ -21,7 +21,7 @@
 		
 			<td th:text="${role.id}">1</td>
 			
-			<td><a href="#" th:href="@{'/roles/editar/'+${role.id}}" th:text="${role.role}"> Role </a></td>
+			<td><a href="#" th:href="@{'/roles/editar/'+${role.id}}" th:text="${role.name}"> Role </a></td>
 			
 			<td><a href="#" th:href="@{'/roles/excluir/'+${role.id}}" th:text="X"> Apagar </a></td>
 			
