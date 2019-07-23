@@ -74,7 +74,7 @@ public class LivroController {
 	@GetMapping("/excluir/{id}")
 	public ModelAndView destroy(@PathVariable("id") Long id) {
 		this.service.apagaLivro(id);
-		return new ModelAndView("redirect:" + TEMPLATE + "/list");
+		return new ModelAndView("redirect:/" + TEMPLATE + "/list");
 	}
 
 }
