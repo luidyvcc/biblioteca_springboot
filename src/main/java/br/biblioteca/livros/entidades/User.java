@@ -1,12 +1,10 @@
 package br.biblioteca.livros.entidades;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,8 +21,9 @@ public class User {
 
 	private String password;
 
-	@OneToMany(mappedBy = "user")
-	private List<Role> roles = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "id_role")
+	private Role role;
 
 	public User() {
 	}
@@ -58,17 +57,12 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Role> getRoles() {
-		return roles;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-
-	@Override
-	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", roles=" + roles + "]";
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }
