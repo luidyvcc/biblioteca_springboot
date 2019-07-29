@@ -6,7 +6,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
 	<meta charset="UTF-8" />
-	<title>Usuários</title>
+	<title>Login</title>
 
 </head>
 <body>
@@ -18,41 +18,31 @@
 		     	<div class="card">
 		     	
 		     		<div class="card-header text-center">
-				    	Novo Usuário
+				    	Login
 			  		</div>
 			  		
-			  		<form th:action="@{/users/gravar}" method="post" th:object="${user}" action="#">
+			  		<form id="userForm" th:action="@{/users/autentication}" th:object="${userForm}" action="#" method="post">
 			  		
 				  		<div class="card-body">					 
 	
 							<input type="hidden" th:field="*{id}" />
 						
 							 <div class="form-group">
-							   <label for="name">Nome</label>
-							   <input type="text" th:field="*{username}" id="username" name="username" class="form-control" placeholder="username">
-							   <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</span>
+							   <label for="name">Username</label>
+							  <input type="text" th:field="*{username}" class="form-control" />
+							  <span  th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Nome Error</span>
 							 </div>
 							 
 							 <div class="form-group">
 							   <label for="password">Senha</label>
-							   <input type="password" th:field="*{password}" id="password" name="password" class="form-control" placeholder="senha">
-							   <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</span>
+							   <input type="text" th:field="*{password}" class="form-control" />
+							   <span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Nome Error</span>
 							 </div>
-							 
-							 <div class="form-group">
-							   	<label for="role">Permissão</label>	
-								<select th:object="${user}" th:field="*{role}" id="role" name="role" class="form-control">
-								   	 <option value="">Selecione a permissão</option>
-								   	 <option th:each="role : ${listaRoles}" th:value="${role.id}" th:utext="${role.name} " selected="selected"></option>
-								</select>
-							 </div>
-													
+							 													
 						</div>
 						
 						<div class="card-footer text-center">
-							<button type="submit" class="btn btn-primary">Gravar</button>
-							  
-						  	<a href="/users/list" class="btn btn-primary">Voltar</a>
+						  	<input type="submit" name="login" value="login" class="btn btn-primary" />
 						</div>
 					
 					</form>

@@ -16,21 +16,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.biblioteca.livros.entidades.Role;
 import br.biblioteca.livros.entidades.User;
+import br.biblioteca.livros.services.RoleService;
 import br.biblioteca.livros.services.SecurityService;
 import br.biblioteca.livros.services.UserService;
 import br.biblioteca.livros.validator.LoginValidator;
 import br.biblioteca.livros.validator.UserValidator;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
+
+	private static final String TEMPLATE = "users";
 
 	@Autowired
 	private SecurityService securityService;
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private RoleService serviceRole;
 
 	@Autowired
 	private UserValidator userValidator;
@@ -40,7 +47,7 @@ public class UserController {
 
 	@GetMapping("/login")
 	public ModelAndView login() {
-		return new ModelAndView("users/form", "userForm", new User());
+		return new ModelAndView("users/login", "userForm", new User());
 	}
 
 	@PostMapping("/autentication")
@@ -50,40 +57,47 @@ public class UserController {
 		loginValidator.validate(userForm, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			return new ModelAndView("users/form");
+			return new ModelAndView("users/login");
 		}
 
 		securityService.login(userForm.getUsername(), userForm.getPassword());
 
-		return new ModelAndView("redirect:/users/list");
+		return new ModelAndView("redirect:/" + TEMPLATE + "/list");
 	}
 
 	@GetMapping("/list")
-	public ModelAndView list() {
-		return new ModelAndView("/users/list");
+	public ModelAndView index() {
+		List<User> users = this.userService.listaUsers();
+		return new ModelAndView(TEMPLATE + "/index", "listaUsers", users);
 	}
 
-	@GetMapping("/listadmin")
-	public ModelAndView listadmin(User user) {
+	@GetMapping(value = "/novo")
+	public ModelAndView create(@ModelAttribute User user) {
 
-		List<User> users = userService.findAll();
-		return new ModelAndView("/users/listadmin", "users", users);
+		ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/form");
+		Iterable<Role> roles = this.serviceRole.listaRoles();
+		modelAndView.addObject("listaRoles", roles);
+		return modelAndView;
+
 	}
 
-	@GetMapping(value = "/registration")
-	public ModelAndView registration() {
+	/*
+	 * @GetMapping(value = "/gravar") public ModelAndView registration() {
+	 * 
+	 * return new ModelAndView(TEMPLATE + "/registration", "userForm", new User());
+	 * }
+	 */
 
-		return new ModelAndView("users/registration", "userForm", new User());
-	}
-
-	@PostMapping(value = "/registration")
-	public ModelAndView registrationform(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,
-			Model model) {
+	@PostMapping(value = "/gravar")
+	public ModelAndView registrationform(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
 
 		userValidator.validate(userForm, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			return new ModelAndView("users/registration");
+			ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/form");
+			Iterable<Role> roles = this.serviceRole.listaRoles();
+			modelAndView.addObject("listaRoles", roles);
+			return modelAndView;
 		}
 
 		String password = userForm.getPassword();
@@ -94,11 +108,11 @@ public class UserController {
 
 			securityService.login(userForm.getUsername(), password);
 
-			return new ModelAndView("redirect:/users/list");
+			return new ModelAndView("redirect:/" + TEMPLATE + "/list");
 
 		} catch (Exception e) {
 
-			return new ModelAndView("redirect:/users/login");
+			return new ModelAndView("redirect:/" + TEMPLATE + "/novo");
 		}
 	}
 
@@ -111,7 +125,7 @@ public class UserController {
 			session.invalidate();
 		}
 
-		return "redirect:/users/login";
+		return "redirect:/" + TEMPLATE + "/login";
 	}
 
 }

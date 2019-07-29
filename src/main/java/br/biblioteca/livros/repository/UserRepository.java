@@ -18,10 +18,16 @@ public class UserRepository {
 	UserRepository() {
 
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		User basic = new User("teste", passwordEncoder.encode("123456"));
+		Role r1 = new Role();
+		r1.setName("ROLE_BASIC");
+		basic.setRole(r1);
+		users.add(basic);
+
 		User admin = new User("admin", passwordEncoder.encode("123456"));
-		Role role = new Role();
-		role.setName("ROLE_ADMIN");
-		admin.setRole(role);
+		Role r2 = new Role();
+		r2.setName("ROLE_ADMIN");
+		admin.setRole(r2);
 		users.add(admin);
 
 	}
