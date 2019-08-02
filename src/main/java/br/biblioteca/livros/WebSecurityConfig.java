@@ -42,10 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/livros/editar").hasRole("ADMIN")
 				.antMatchers(HttpMethod.GET, "/livros/excluir").hasRole("ADMIN")
 
+				.antMatchers(HttpMethod.GET, "/users/novo").hasRole("ADMIN")
+
+				.antMatchers(HttpMethod.GET, "/users/editar").hasRole("ADMIN")
+
 				.antMatchers(HttpMethod.GET, "/users/list").hasRole("ADMIN")
 
-				.antMatchers(HttpMethod.GET, "/users/list").hasRole("ADMIN").and().formLogin().loginPage("/user/login")
-				.permitAll().and().logout().permitAll();
+				.and().formLogin().loginPage("/users/login").permitAll().and().logout().permitAll();
 	}
 
 	@Autowired

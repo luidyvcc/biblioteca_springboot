@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+  	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -22,19 +24,27 @@
 						     	
 					 <ul class="list-group list-group-flush">
 					 
+					 	<li class="list-group-item" sec:authorize="isAnonymous()">
+							<a href="/users/login">Login</a>
+						</li>
+						
+						<li class="list-group-item">
+							<a href="/users/logout">Logout</a>
+						</li>						
+					 
 					   	<li class="list-group-item">
 							<a href="/livros/list">Livros</a>
 						</li>
 						
-					   	<li class="list-group-item">
+					   	<li class="list-group-item" sec:authorize="hasAuthority('ROLE_BASIC')">
 							<a href="/autores/list">Autores</a>
 						</li>
 						
-						<li class="list-group-item">
+						<li class="list-group-item" sec:authorize="hasAuthority('ROLE_BASIC')">
 							<a href="/roles/list">Regras</a>
 						</li>
 						
-						<li class="list-group-item">
+						<li class="list-group-item" sec:authorize="hasAuthority('ROLE_BASIC')">
 							<a href="/users/list">Usuários</a>
 						</li>
 						

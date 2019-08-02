@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<meta charset="UTF-8" />
-<title>Autores</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+	<meta charset="UTF-8" />
+	<title>Autores</title>
+
 </head>
 <body>
-	<h1>Autor</h1>
 
-	<form th:action="@{/autores/gravar}" method="post" th:object="${autor}" action="#">
+	<div class="container">
+		
+		<div class="row justify-content-md-center">
+		    <div class="col-3">
+		     	<div class="card">
+		     	
+		     		<div class="card-header text-center">
+				    	Novo Autor
+			  		</div>
+			  		
+			  		<form th:action="@{/autores/gravar}" method="post" th:object="${autor}" action="#">
+			  		
+				  		<div class="card-body">					 
 	
-		
-		<input type="hidden" th:field="*{id}" />
-		
-		<label for="nome">Titulo</label>
-    	<input type="text" th:field="*{nome}" id="nome" name="nome" placeholder="Nome">
-    	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Error</span>
-		
-		<hr>
-		
-		 <button type="submit" class="btn btn-primary">Gravar</button>
-  
- 		 <a href="/autores/list" class="btn btn-primary">Voltar</a>
-	
-	</form>
-	
+							<input type="hidden" th:field="*{id}" />
+						
+							 <div class="form-group">
+							   	<label for="nome">Nome</label>
+						    	<input type="text" th:field="*{nome}" id="name" name="nome" placeholder="José Regino" class="form-control">
+						    	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Error</span>
+							 </div>
+													
+						</div>
+						
+						<div class="card-footer text-center">
+							<button type="submit" class="btn btn-primary">Gravar</button>
+							  
+						  	<a href="/autores/list" class="btn btn-primary">Voltar</a>
+						</div>
+					
+					</form>
+					
+					
+					 
+				</div>
+		    </div>
+		  </div>
+	  </div>		
+	</div>
+
+
 </body>
 </html>

@@ -41,17 +41,14 @@
 	
 		<thead>
 		  <tr>
-		    <th scope="col">ID</th>
 		    <th scope="col">Username</th>
 		    <th scope="col">Senha</th>
-		    <th scope="col">Role</th>
+		    <th scope="col">Apagar</th>
 		  </tr>
 		</thead>
 	
 	
 		<tr th:each="user : ${listaUsers}">
-		
-			<td th:text="${user.id}">1</td>
 			
 			<td><a href="#" th:href="@{'/users/editar/'+${user.id}}" th:text="${user.username}"> Username </a></td>
 			
