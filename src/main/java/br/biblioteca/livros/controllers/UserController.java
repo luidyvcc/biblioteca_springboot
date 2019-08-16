@@ -103,7 +103,7 @@ public class UserController {
 
 		}
 
-		String password = userForm.getPassword();
+		// String password = userForm.getPassword();
 
 		userService.save(userForm);
 
