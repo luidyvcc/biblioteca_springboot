@@ -18,7 +18,7 @@ import br.biblioteca.livros.entidades.Role;
 import br.biblioteca.livros.services.RoleService;
 
 @Controller
-@RequestMapping("/roles")
+@RequestMapping("roles")
 public class RoleController {
 
 	private static final String TEMPLATE = "roles";
