@@ -12,12 +12,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.biblioteca.livros.entidades.User;
-import br.biblioteca.livros.repository.UserRepository;
+import br.biblioteca.livros.repository.UsersRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
 	@Autowired
-	private UserRepository userRepository;
+	private UsersRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

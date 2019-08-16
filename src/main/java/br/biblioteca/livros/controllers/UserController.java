@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -62,7 +63,7 @@ public class UserController {
 
 		securityService.login(userForm.getUsername(), userForm.getPassword());
 
-		return new ModelAndView("redirect:/" + TEMPLATE + "/list");
+		return new ModelAndView("redirect:/");
 	}
 
 	@GetMapping("/list")
@@ -94,10 +95,12 @@ public class UserController {
 		userValidator.validate(userForm, bindingResult);
 
 		if (bindingResult.hasErrors()) {
+
 			ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/form");
 			Iterable<Role> roles = this.serviceRole.listaRoles();
 			modelAndView.addObject("listaRoles", roles);
 			return modelAndView;
+
 		}
 
 		String password = userForm.getPassword();
@@ -106,7 +109,7 @@ public class UserController {
 
 		try {
 
-			securityService.login(userForm.getUsername(), password);
+			// securityService.login(userForm.getUsername(), password);
 
 			return new ModelAndView("redirect:/" + TEMPLATE + "/list");
 
@@ -114,6 +117,16 @@ public class UserController {
 
 			return new ModelAndView("redirect:/" + TEMPLATE + "/novo");
 		}
+	}
+
+	@GetMapping("/editar/{id}")
+	public ModelAndView edit(@PathVariable("id") Long id) {
+		User user = this.userService.buscarUser(id);
+		Iterable<Role> roles = this.serviceRole.listaRoles();
+		ModelAndView modelAndView = new ModelAndView(TEMPLATE + "/form");
+		modelAndView.addObject("listaRoles", roles);
+		modelAndView.addObject("user", user);
+		return modelAndView;
 	}
 
 	@GetMapping("/logout")

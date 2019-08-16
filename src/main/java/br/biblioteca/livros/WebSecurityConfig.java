@@ -33,25 +33,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// HABILITA O FRAME DO H2-CONSOLE
+
 		http.headers().frameOptions().disable();
 
-		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/user/registration").permitAll()
+		http.csrf().disable().authorizeRequests()
+
+				.antMatchers(HttpMethod.GET, "/user/registration").permitAll()
 
 				.antMatchers(HttpMethod.GET, "/livros/list").permitAll()
 
-				.antMatchers(HttpMethod.GET, "/livro/novo").hasRole("ADMIN")
+				.antMatchers(HttpMethod.GET, "/livros/novo").hasRole("ADMIN")
 
-				.antMatchers(HttpMethod.POST, "/livro/gravar").hasRole("ADMIN")
+				.antMatchers(HttpMethod.POST, "/livros/gravar").hasRole("ADMIN")
 
 				.antMatchers(HttpMethod.GET, "/livros/editar").hasRole("ADMIN")
 
 				.antMatchers(HttpMethod.GET, "/livros/excluir").hasRole("ADMIN")
 
-				.antMatchers(HttpMethod.GET, "/users/novo").hasRole("ADMIN")
+				// .antMatchers(HttpMethod.GET, "/users/novo").hasRole("ADMIN")
 
-				.antMatchers(HttpMethod.GET, "/users/editar").hasRole("ADMIN")
-
-				.antMatchers(HttpMethod.GET, "/users/list").hasRole("ADMIN")
+				// .antMatchers(HttpMethod.GET, "/users/list").hasRole("ADMIN")
 
 				.and().formLogin().loginPage("/users/login").permitAll().and().logout().permitAll();
 	}
