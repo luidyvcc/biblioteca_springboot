@@ -42,9 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.GET, "/livros/list").permitAll()
 
-				.antMatchers(HttpMethod.GET, "/livros/novo").hasRole("ADMIN")
+				// .antMatchers(HttpMethod.GET, "/livros/novo").hasRole("ADMIN")
 
-				.antMatchers(HttpMethod.POST, "/livros/gravar").hasRole("ADMIN")
+				// .antMatchers(HttpMethod.POST, "/livros/gravar").hasRole("ADMIN")
 
 				.antMatchers(HttpMethod.GET, "/livros/editar").hasRole("ADMIN")
 
