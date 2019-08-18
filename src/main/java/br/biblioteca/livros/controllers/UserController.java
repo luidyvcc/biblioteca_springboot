@@ -26,7 +26,7 @@ import br.biblioteca.livros.validator.LoginValidator;
 import br.biblioteca.livros.validator.UserValidator;
 
 @Controller
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserController {
 
 	private static final String TEMPLATE = "users";
